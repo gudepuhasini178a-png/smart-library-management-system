@@ -306,127 +306,153 @@ function applyRolePermissions(role) {
    LOGIN SYSTEM
    ========================================================= */
 
-loginForm.addEventListener(
-    "submit",
-    function (event) {
+if (loginForm) {
 
-        /* Prevent page refresh */
+    loginForm.addEventListener(
+        "submit",
+        function (event) {
 
-        event.preventDefault();
+            /* Prevent page refresh */
 
-
-        /* Get entered username */
-
-        const username =
-            document
-                .getElementById("username")
-                .value
-                .trim();
+            event.preventDefault();
 
 
-        /* Get entered password */
+            /* Get entered username */
 
-        const password =
-            document
-                .getElementById("password")
-                .value
-                .trim();
-
-
-        /* Get selected role */
-
-        const role =
-            document
-                .getElementById("role")
-                .value;
+            const username =
+                document
+                    .getElementById("username")
+                    .value
+                    .trim();
 
 
-        /* Get credentials for selected role */
+            /* Get entered password */
 
-        const selectedUser =
-            users[role];
-
-
-        /* -----------------------------------------
-           Validate Login
-           ----------------------------------------- */
-
-        if (
-            selectedUser &&
-            username === selectedUser.username &&
-            password === selectedUser.password
-        ) {
-
-            /* Save login session */
-
-            sessionStorage.setItem(
-                "loggedIn",
-                "true"
-            );
+            const password =
+                document
+                    .getElementById("password")
+                    .value
+                    .trim();
 
 
-            sessionStorage.setItem(
-                "username",
-                username
-            );
+            /* Get selected role */
+
+            const role =
+                document
+                    .getElementById("role")
+                    .value;
 
 
-            sessionStorage.setItem(
-                "role",
-                role
-            );
+            /* Get credentials for selected role */
 
-
-            /* Display username */
-
-            displayUsername.textContent =
-                username;
-
-
-            /* Display role */
-
-            displayRole.textContent =
-                role;
+            const selectedUser =
+                users[role];
 
 
             /* -----------------------------------------
-               APPLY ROLE PERMISSIONS
+               Validate Login
                ----------------------------------------- */
 
-            applyRolePermissions(role);
+            if (
+                selectedUser &&
+                username === selectedUser.username &&
+                password === selectedUser.password
+            ) {
+
+                /* Save login session */
+
+                sessionStorage.setItem(
+                    "loggedIn",
+                    "true"
+                );
 
 
-            /* Hide login page */
-
-            loginPage.classList.add(
-                "hidden"
-            );
-
-
-            /* Show application */
-
-            appPage.classList.remove(
-                "hidden"
-            );
+                sessionStorage.setItem(
+                    "username",
+                    username
+                );
 
 
-            /* Clear login error */
+                sessionStorage.setItem(
+                    "role",
+                    role
+                );
 
-            loginError.textContent = "";
+
+                /* Display username */
+
+                if (displayUsername) {
+
+                    displayUsername.textContent =
+                        username;
+
+                }
+
+
+                /* Display role */
+
+                if (displayRole) {
+
+                    displayRole.textContent =
+                        role;
+
+                }
+
+
+                /* APPLY ROLE PERMISSIONS */
+
+                applyRolePermissions(role);
+
+
+                /* Hide login page */
+
+                if (loginPage) {
+
+                    loginPage.classList.add(
+                        "hidden"
+                    );
+
+                }
+
+
+                /* Show application */
+
+                if (appPage) {
+
+                    appPage.classList.remove(
+                        "hidden"
+                    );
+
+                }
+
+
+                /* Clear login error */
+
+                if (loginError) {
+
+                    loginError.textContent = "";
+
+                }
+
+            }
+
+            else {
+
+                /* Invalid login */
+
+                if (loginError) {
+
+                    loginError.textContent =
+                        "Invalid username, password or role.";
+
+                }
+
+            }
 
         }
+    );
 
-        else {
-
-            /* Invalid login */
-
-            loginError.textContent =
-                "Invalid username, password or role.";
-
-        }
-
-    }
-);
+}
 
 
 /* =========================================================
@@ -488,14 +514,25 @@ navButtons.forEach(function (button) {
 
             /* Update title */
 
-            pageTitle.textContent =
-                pageInformation[pageName].title;
+            if (pageTitle && pageInformation[pageName]) {
+
+                pageTitle.textContent =
+                    pageInformation[pageName].title;
+
+            }
 
 
             /* Update description */
 
-            pageDescription.textContent =
-                pageInformation[pageName].description;
+            if (
+                pageDescription &&
+                pageInformation[pageName]
+            ) {
+
+                pageDescription.textContent =
+                    pageInformation[pageName].description;
+
+            }
 
         }
     );
@@ -573,12 +610,23 @@ pageLinks.forEach(function (button) {
 
             /* Update header */
 
-            pageTitle.textContent =
-                pageInformation[pageName].title;
+            if (pageTitle && pageInformation[pageName]) {
+
+                pageTitle.textContent =
+                    pageInformation[pageName].title;
+
+            }
 
 
-            pageDescription.textContent =
-                pageInformation[pageName].description;
+            if (
+                pageDescription &&
+                pageInformation[pageName]
+            ) {
+
+                pageDescription.textContent =
+                    pageInformation[pageName].description;
+
+            }
 
         }
     );
@@ -712,9 +760,489 @@ if (addBookButton) {
         "click",
         function () {
 
-            alert(
-                "Add Book feature is ready for backend integration."
-            );
+            /* Create Add Book Modal */
+
+            const modal =
+                document.createElement("div");
+
+
+            modal.id = "addBookModal";
+
+
+            modal.style.position = "fixed";
+            modal.style.top = "0";
+            modal.style.left = "0";
+            modal.style.width = "100%";
+            modal.style.height = "100%";
+
+            modal.style.background =
+                "rgba(15, 23, 42, 0.45)";
+
+            modal.style.display = "flex";
+            modal.style.justifyContent = "center";
+            modal.style.alignItems = "center";
+
+            modal.style.zIndex = "9999";
+
+
+            modal.innerHTML = `
+
+                <div style="
+                    width: 430px;
+                    max-width: 90%;
+                    background: #ffffff;
+                    padding: 28px;
+                    border-radius: 12px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+                ">
+
+                    <h2 style="
+                        margin-bottom: 20px;
+                        color: #334155;
+                        font-size: 20px;
+                    ">
+                        Add New Book
+                    </h2>
+
+
+                    <form id="addBookForm">
+
+
+                        <div style="margin-bottom: 15px;">
+
+                            <label style="
+                                display: block;
+                                margin-bottom: 6px;
+                                color: #475569;
+                                font-size: 12px;
+                                font-weight: 600;
+                            ">
+                                Book ID
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="newBookId"
+                                placeholder="Example: B004"
+                                required
+                                style="
+                                    width: 100%;
+                                    height: 43px;
+                                    padding: 0 12px;
+                                    border: 1px solid #d5dce5;
+                                    border-radius: 7px;
+                                    outline: none;
+                                    box-sizing: border-box;
+                                "
+                            >
+
+                        </div>
+
+
+                        <div style="margin-bottom: 15px;">
+
+                            <label style="
+                                display: block;
+                                margin-bottom: 6px;
+                                color: #475569;
+                                font-size: 12px;
+                                font-weight: 600;
+                            ">
+                                Book Title
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="newBookTitle"
+                                placeholder="Enter book title"
+                                required
+                                style="
+                                    width: 100%;
+                                    height: 43px;
+                                    padding: 0 12px;
+                                    border: 1px solid #d5dce5;
+                                    border-radius: 7px;
+                                    outline: none;
+                                    box-sizing: border-box;
+                                "
+                            >
+
+                        </div>
+
+
+                        <div style="margin-bottom: 15px;">
+
+                            <label style="
+                                display: block;
+                                margin-bottom: 6px;
+                                color: #475569;
+                                font-size: 12px;
+                                font-weight: 600;
+                            ">
+                                Author
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="newBookAuthor"
+                                placeholder="Enter author name"
+                                required
+                                style="
+                                    width: 100%;
+                                    height: 43px;
+                                    padding: 0 12px;
+                                    border: 1px solid #d5dce5;
+                                    border-radius: 7px;
+                                    outline: none;
+                                    box-sizing: border-box;
+                                "
+                            >
+
+                        </div>
+
+
+                        <div style="margin-bottom: 15px;">
+
+                            <label style="
+                                display: block;
+                                margin-bottom: 6px;
+                                color: #475569;
+                                font-size: 12px;
+                                font-weight: 600;
+                            ">
+                                Category
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="newBookCategory"
+                                placeholder="Example: Computer Science"
+                                required
+                                style="
+                                    width: 100%;
+                                    height: 43px;
+                                    padding: 0 12px;
+                                    border: 1px solid #d5dce5;
+                                    border-radius: 7px;
+                                    outline: none;
+                                    box-sizing: border-box;
+                                "
+                            >
+
+                        </div>
+
+
+                        <div style="margin-bottom: 20px;">
+
+                            <label style="
+                                display: block;
+                                margin-bottom: 6px;
+                                color: #475569;
+                                font-size: 12px;
+                                font-weight: 600;
+                            ">
+                                Available Copies
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="newBookAvailable"
+                                min="0"
+                                placeholder="Enter number of copies"
+                                required
+                                style="
+                                    width: 100%;
+                                    height: 43px;
+                                    padding: 0 12px;
+                                    border: 1px solid #d5dce5;
+                                    border-radius: 7px;
+                                    outline: none;
+                                    box-sizing: border-box;
+                                "
+                            >
+
+                        </div>
+
+
+                        <div style="
+                            display: flex;
+                            gap: 10px;
+                            justify-content: flex-end;
+                        ">
+
+
+                            <button
+                                type="button"
+                                id="cancelAddBook"
+                                style="
+                                    padding: 9px 15px;
+                                    border: 1px solid #d5dce5;
+                                    border-radius: 6px;
+                                    background: #ffffff;
+                                    color: #475569;
+                                    cursor: pointer;
+                                "
+                            >
+                                Cancel
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                style="
+                                    padding: 9px 15px;
+                                    border: none;
+                                    border-radius: 6px;
+                                    background: #1d4f91;
+                                    color: #ffffff;
+                                    cursor: pointer;
+                                "
+                            >
+                                Add Book
+                            </button>
+
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+            `;
+
+
+            document.body.appendChild(modal);
+
+
+            /* Cancel Button */
+
+            const cancelButton =
+                document.getElementById(
+                    "cancelAddBook"
+                );
+
+
+            if (cancelButton) {
+
+                cancelButton.addEventListener(
+                    "click",
+                    function () {
+
+                        modal.remove();
+
+                    }
+                );
+
+            }
+
+
+            /* Add Book Form */
+
+            const addBookForm =
+                document.getElementById(
+                    "addBookForm"
+                );
+
+
+            if (addBookForm) {
+
+                addBookForm.addEventListener(
+                    "submit",
+                    function (event) {
+
+                        event.preventDefault();
+
+
+                        const bookId =
+                            document
+                                .getElementById(
+                                    "newBookId"
+                                )
+                                .value
+                                .trim();
+
+
+                        const title =
+                            document
+                                .getElementById(
+                                    "newBookTitle"
+                                )
+                                .value
+                                .trim();
+
+
+                        const author =
+                            document
+                                .getElementById(
+                                    "newBookAuthor"
+                                )
+                                .value
+                                .trim();
+
+
+                        const category =
+                            document
+                                .getElementById(
+                                    "newBookCategory"
+                                )
+                                .value
+                                .trim();
+
+
+                        const available =
+                            parseInt(
+                                document
+                                    .getElementById(
+                                        "newBookAvailable"
+                                    )
+                                    .value
+                            );
+
+
+                        /* Check duplicate Book ID */
+
+                        const existingRows =
+                            document.querySelectorAll(
+                                "#booksTable tr"
+                            );
+
+
+                        let duplicate = false;
+
+
+                        existingRows.forEach(
+                            function (row) {
+
+                                const firstCell =
+                                    row.querySelector("td");
+
+
+                                if (
+                                    firstCell &&
+                                    firstCell.textContent
+                                        .trim()
+                                        .toLowerCase() ===
+                                    bookId.toLowerCase()
+                                ) {
+
+                                    duplicate = true;
+
+                                }
+
+                            }
+                        );
+
+
+                        if (duplicate) {
+
+                            alert(
+                                "Book ID already exists."
+                            );
+
+                            return;
+
+                        }
+
+
+                        /* Create New Table Row */
+
+                        const newRow =
+                            document.createElement(
+                                "tr"
+                            );
+
+
+                        const status =
+                            available > 0
+                                ? `
+                                    <span class="status available-status">
+                                        Available
+                                    </span>
+                                  `
+                                : `
+                                    <span class="status unavailable-status">
+                                        Not Available
+                                    </span>
+                                  `;
+
+
+                        newRow.innerHTML = `
+
+                            <td>${bookId}</td>
+
+                            <td>${title}</td>
+
+                            <td>${author}</td>
+
+                            <td>${category}</td>
+
+                            <td>${available}</td>
+
+                            <td>${status}</td>
+
+                        `;
+
+
+                        /* Add row to table */
+
+                        const booksTable =
+                            document.getElementById(
+                                "booksTable"
+                            );
+
+
+                        if (booksTable) {
+
+                            booksTable.appendChild(
+                                newRow
+                            );
+
+                        }
+
+
+                        /* Update Total Books */
+
+                        const totalBooks =
+                            document.getElementById(
+                                "totalBooks"
+                            );
+
+
+                        if (totalBooks) {
+
+                            const currentTotal =
+                                parseInt(
+                                    totalBooks.textContent
+                                ) || 0;
+
+
+                            totalBooks.textContent =
+                                currentTotal + 1;
+
+                        }
+
+
+                        /* Close Modal */
+
+                        modal.remove();
+
+
+                        /* Success Message */
+
+                        alert(
+                            "Book added successfully!"
+                        );
+
+                    }
+                );
+
+            }
 
         }
     );
@@ -743,26 +1271,42 @@ if (logoutButton) {
 
             /* Hide application */
 
-            appPage.classList.add(
-                "hidden"
-            );
+            if (appPage) {
+
+                appPage.classList.add(
+                    "hidden"
+                );
+
+            }
 
 
             /* Show login page */
 
-            loginPage.classList.remove(
-                "hidden"
-            );
+            if (loginPage) {
+
+                loginPage.classList.remove(
+                    "hidden"
+                );
+
+            }
 
 
             /* Reset login form */
 
-            loginForm.reset();
+            if (loginForm) {
+
+                loginForm.reset();
+
+            }
 
 
             /* Clear error */
 
-            loginError.textContent = "";
+            if (loginError) {
+
+                loginError.textContent = "";
+
+            }
 
 
             /* Reset sidebar visibility */
@@ -803,7 +1347,9 @@ if (logoutButton) {
 
 
             const dashboardPage =
-                document.getElementById("dashboard");
+                document.getElementById(
+                    "dashboard"
+                );
 
 
             if (dashboardButton) {
