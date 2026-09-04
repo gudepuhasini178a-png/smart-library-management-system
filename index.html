@@ -1,1787 +1,602 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Library Management System</title>
-
-    <!-- CSS File -->
     <link rel="stylesheet" href="style.css">
-
 </head>
-
 
 <body>
 
+<!-- LOGIN -->
+<div id="loginPage" class="login-page">
+    <div class="login-box">
+        <div class="logo">📚</div>
+        <h1>SMART LIBRARY</h1>
+        <p>Management System</p>
 
-    <!-- =====================================================
-         LOGIN PAGE
-         ===================================================== -->
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
 
-    <section id="loginPage" class="login-page">
+            <select id="role" required>
+                <option value="">Select Role</option>
+                <option value="Administrator">Administrator</option>
+                <option value="Librarian">Librarian</option>
+                <option value="Student">Student</option>
+            </select>
 
-        <div class="login-card">
+            <button type="submit">Login</button>
+            <p id="loginError"></p>
+        </form>
+    </div>
+</div>
 
-            <!-- Library Icon -->
-            <div class="library-icon">
-                📚
+
+<!-- APPLICATION -->
+<div id="appPage" class="app-page hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">📚</div>
+            <div>
+                <h2>SMART LIBRARY</h2>
+                <span>Management System</span>
             </div>
-
-
-            <!-- Project Title -->
-            <h1>SMART LIBRARY</h1>
-
-            <p class="login-subtitle">
-                Library Management System
-            </p>
-
-
-            <div class="divider"></div>
-
-
-            <!-- Login Form -->
-            <form id="loginForm">
-
-
-                <!-- Username -->
-                <div class="form-group">
-
-                    <label for="username">
-                        Username
-                    </label>
-
-                    <input
-                        type="text"
-                        id="username"
-                        placeholder="Enter username"
-                        required
-                    >
-
-                </div>
-
-
-                <!-- Password -->
-                <div class="form-group">
-
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="Enter password"
-                        required
-                    >
-
-                </div>
-
-
-                <!-- Role -->
-                <div class="form-group">
-
-                    <label for="role">
-                        Login As
-                    </label>
-
-                    <select id="role">
-
-                        <option value="Administrator">
-                            Administrator
-                        </option>
-
-                        <option value="Librarian">
-                            Librarian
-                        </option>
-
-                        <option value="Student">
-                            Student
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- Login Button -->
-                <button
-                    type="submit"
-                    class="primary-button"
-                >
-                    LOGIN
-                </button>
-
-
-                <!-- Login Error -->
-                <p id="loginError" class="error-message"></p>
-
-            </form>
-
-
-            <p class="login-footer">
-                Smart • Simple • Efficient
-            </p>
-
         </div>
 
-    </section>
+        <nav>
+
+            <button class="nav-button active" data-page="dashboard">
+                📊 <span>Dashboard</span>
+            </button>
+
+            <button class="nav-button" data-page="books">
+                📚 <span>Books</span>
+            </button>
+
+            <button class="nav-button" data-page="students">
+                👨‍🎓 <span>Students</span>
+            </button>
+
+            <button class="nav-button" data-page="transactions">
+                🔄 <span>Issue & Return</span>
+            </button>
+
+            <button class="nav-button" data-page="reservations">
+                📅 <span>Reservations</span>
+            </button>
+
+            <button class="nav-button" data-page="fines">
+                💰 <span>Fines</span>
+            </button>
+
+            <button class="nav-button" data-page="notifications">
+                🔔 <span>Notifications</span>
+            </button>
+
+            <button class="nav-button" data-page="reports">
+                📈 <span>Reports</span>
+            </button>
+
+            <button class="nav-button" data-page="settings">
+                ⚙️ <span>Settings</span>
+            </button>
+
+        </nav>
+
+        <button id="logoutButton" class="logout-button">
+            🚪 Logout
+        </button>
+
+    </aside>
 
 
+    <!-- MAIN -->
+    <main class="main-content">
 
-    <!-- =====================================================
-         MAIN APPLICATION
-         ===================================================== -->
+        <!-- TOP BAR -->
+        <header class="topbar">
+            <div></div>
 
-    <section
-        id="appPage"
-        class="app-page hidden"
-    >
-
-
-        <!-- =================================================
-             SIDEBAR
-             ================================================= -->
-
-        <aside class="sidebar">
+            <div class="user-area">
+                <span>🔔</span>
+                <div class="avatar">A</div>
+                <div>
+                    <strong id="loggedUser">admin</strong>
+                    <small id="loggedRole">Administrator</small>
+                </div>
+            </div>
+        </header>
 
 
-            <!-- Logo -->
-            <div class="sidebar-brand">
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="content-page active-page">
 
-                <div class="brand-icon">
-                    📚
+            <div class="page-heading">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Overview of your library</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div>
+                        <h2>1250</h2>
+                        <p>Total Books</p>
+                        <small>Books in library</small>
+                    </div>
                 </div>
 
-                <div>
+                <div class="stat-card">
+                    <div class="stat-icon">👨‍🎓</div>
+                    <div>
+                        <h2>486</h2>
+                        <p>Students</p>
+                        <small>Registered students</small>
+                    </div>
+                </div>
 
-                    <h2>SMART LIBRARY</h2>
+                <div class="stat-card">
+                    <div class="stat-icon">🔄</div>
+                    <div>
+                        <h2>128</h2>
+                        <p>Issued Books</p>
+                        <small>Currently issued</small>
+                    </div>
+                </div>
 
-                    <span>
-                        Management System
-                    </span>
-
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div>
+                        <h2>18</h2>
+                        <p>Overdue</p>
+                        <small>Needs attention</small>
+                    </div>
                 </div>
 
             </div>
 
 
-            <!-- Navigation -->
-            <nav class="sidebar-nav">
+            <div class="dashboard-grid">
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Recent Transactions</h2>
+                            <p>Latest library activities</p>
+                        </div>
+
+                        <button class="small-button">View All</button>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STUDENT</th>
+                                <th>BOOK</th>
+                                <th>ACTION</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Rahul Kumar</td>
+                                <td>Data Structures</td>
+                                <td>Issued</td>
+                                <td><span class="badge blue">Issued</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Ananya Reddy</td>
+                                <td>Computer Networks</td>
+                                <td>Returned</td>
+                                <td><span class="badge green">Returned</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>Vikram Singh</td>
+                                <td>Operating Systems</td>
+                                <td>Issued</td>
+                                <td><span class="badge blue">Issued</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
 
-                <button
-                    class="nav-button active"
-                    data-page="dashboard"
-                >
-                    📊
-                    <span>Dashboard</span>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Book Availability</h2>
+                            <p>Current collection</p>
+                        </div>
+                    </div>
+
+                    <div class="availability">
+                        <div>
+                            <strong>Computer Science</strong>
+                            <span>420 books</span>
+                            <b>Available</b>
+                        </div>
+
+                        <div>
+                            <strong>Engineering</strong>
+                            <span>315 books</span>
+                            <b>Available</b>
+                        </div>
+
+                        <div>
+                            <strong>Science</strong>
+                            <span>260 books</span>
+                            <b>Available</b>
+                        </div>
+
+                        <div>
+                            <strong>Literature</strong>
+                            <span>255 books</span>
+                            <b>Available</b>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- BOOKS -->
+        <section id="books" class="content-page">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Books</h1>
+                    <p>Manage your library collection</p>
+                </div>
+
+                <button id="addBookButton" class="primary-button">
+                    + Add Book
                 </button>
+            </div>
 
 
-                <button
-                    class="nav-button"
-                    data-page="books"
-                >
-                    📚
-                    <span>Books</span>
-                </button>
+            <div class="stats-grid">
 
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div>
+                        <h2 id="totalBooks">1250</h2>
+                        <p>Total Books</p>
+                        <small>Books in library</small>
+                    </div>
+                </div>
 
-                <button
-                    class="nav-button"
-                    data-page="students"
-                >
-                    👨‍🎓
-                    <span>Students</span>
-                </button>
+                <div class="stat-card">
+                    <div class="stat-icon">📗</div>
+                    <div>
+                        <h2 id="availableBooks">1122</h2>
+                        <p>Available Books</p>
+                        <small>Currently available</small>
+                    </div>
+                </div>
 
+                <div class="stat-card">
+                    <div class="stat-icon">🔄</div>
+                    <div>
+                        <h2 id="issuedBooks">128</h2>
+                        <p>Issued Books</p>
+                        <small>Currently issued</small>
+                    </div>
+                </div>
 
-                <button
-                    class="nav-button"
-                    data-page="transactions"
-                >
-                    🔄
-                    <span>Issue & Return</span>
-                </button>
-
-
-                <button
-                    class="nav-button"
-                    data-page="reservations"
-                >
-                    📅
-                    <span>Reservations</span>
-                </button>
-
-
-                <button
-                    class="nav-button"
-                    data-page="fines"
-                >
-                    💰
-                    <span>Fines</span>
-                </button>
-
-
-                <button
-                    class="nav-button"
-                    data-page="notifications"
-                >
-                    🔔
-                    <span>Notifications</span>
-                </button>
-
-
-                <button
-                    class="nav-button"
-                    data-page="reports"
-                >
-                    📈
-                    <span>Reports</span>
-                </button>
-
-
-                <button
-                    class="nav-button"
-                    data-page="settings"
-                >
-                    ⚙️
-                    <span>Settings</span>
-                </button>
-
-            </nav>
-
-
-            <!-- Logout -->
-            <div class="sidebar-bottom">
-
-                <button
-                    id="logoutButton"
-                    class="logout-button"
-                >
-                    🚪
-                    <span>Logout</span>
-                </button>
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div>
+                        <h2 id="overdueBooks">18</h2>
+                        <p>Overdue</p>
+                        <small>Needs attention</small>
+                    </div>
+                </div>
 
             </div>
 
-        </aside>
 
+            <div class="panel">
 
-
-        <!-- =================================================
-             MAIN CONTENT
-             ================================================= -->
-
-        <main class="main-content">
-
-
-            <!-- Top Header -->
-            <header class="top-header">
-
-
-                <div>
-
-                    <h1 id="pageTitle">
-                        Dashboard
-                    </h1>
-
-                    <p id="pageDescription">
-                        Overview of your library
-                    </p>
-
-                </div>
-
-
-                <div class="user-area">
-
-
-                    <div class="notification-icon">
-                        🔔
-
-                        <span></span>
+                <div class="panel-heading">
+                    <div>
+                        <h2>Library Books</h2>
+                        <p>Complete collection of books in the library</p>
                     </div>
 
-
-                    <div class="user-profile">
-
-                        <div class="user-avatar">
-                            A
-                        </div>
-
-                        <div>
-
-                            <strong id="displayUsername">
-                                Admin
-                            </strong>
-
-                            <small id="displayRole">
-                                Administrator
-                            </small>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </header>
-
-
-
-            <!-- =================================================
-                 DASHBOARD PAGE
-                 ================================================= -->
-
-            <section
-                id="dashboard"
-                class="content-page active-page"
-            >
-
-
-                <!-- Statistics -->
-                <div class="statistics-grid">
-
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon blue">
-                            📚
-                        </div>
-
-                        <div>
-                            <p>Total Books</p>
-                            <h2 id="totalBooks">
-                                1250
-                            </h2>
-                            <small>
-                                Books in library
-                            </small>
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon green">
-                            👨‍🎓
-                        </div>
-
-                        <div>
-                            <p>Students</p>
-                            <h2 id="totalStudents">
-                                486
-                            </h2>
-                            <small>
-                                Registered students
-                            </small>
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon orange">
-                            🔄
-                        </div>
-
-                        <div>
-                            <p>Issued Books</p>
-                            <h2 id="issuedBooks">
-                                128
-                            </h2>
-                            <small>
-                                Currently issued
-                            </small>
-                        </div>
-
-                    </div>
-
-
-                    <div class="stat-card">
-
-                        <div class="stat-icon red">
-                            ⚠️
-                        </div>
-
-                        <div>
-                            <p>Overdue</p>
-                            <h2 id="overdueBooks">
-                                18
-                            </h2>
-                            <small>
-                                Needs attention
-                            </small>
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Dashboard Cards -->
-                <div class="two-column-layout">
-
-
-                    <!-- Recent Transactions -->
-                    <div class="panel">
-
-                        <div class="panel-header">
-
-                            <div>
-
-                                <h2>
-                                    Recent Transactions
-                                </h2>
-
-                                <p>
-                                    Latest library activities
-                                </p>
-
-                            </div>
-
-                            <button
-                                class="small-button"
-                                data-page-link="transactions"
-                            >
-                                View All
-                            </button>
-
-                        </div>
-
-
-                        <div class="table-wrapper">
-
-                            <table>
-
-                                <thead>
-
-                                    <tr>
-
-                                        <th>Student</th>
-
-                                        <th>Book</th>
-
-                                        <th>Action</th>
-
-                                        <th>Status</th>
-
-                                    </tr>
-
-                                </thead>
-
-
-                                <tbody id="recentTransactions">
-
-                                    <tr>
-
-                                        <td>
-                                            Rahul Kumar
-                                        </td>
-
-                                        <td>
-                                            Data Structures
-                                        </td>
-
-                                        <td>
-                                            Issued
-                                        </td>
-
-                                        <td>
-                                            <span class="status issued">
-                                                Issued
-                                            </span>
-                                        </td>
-
-                                    </tr>
-
-
-                                    <tr>
-
-                                        <td>
-                                            Ananya Reddy
-                                        </td>
-
-                                        <td>
-                                            Computer Networks
-                                        </td>
-
-                                        <td>
-                                            Returned
-                                        </td>
-
-                                        <td>
-                                            <span class="status returned">
-                                                Returned
-                                            </span>
-                                        </td>
-
-                                    </tr>
-
-
-                                    <tr>
-
-                                        <td>
-                                            Vikram Singh
-                                        </td>
-
-                                        <td>
-                                            Operating Systems
-                                        </td>
-
-                                        <td>
-                                            Issued
-                                        </td>
-
-                                        <td>
-                                            <span class="status issued">
-                                                Issued
-                                            </span>
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- Book Availability -->
-                    <div class="panel">
-
-                        <div class="panel-header">
-
-                            <div>
-
-                                <h2>
-                                    Book Availability
-                                </h2>
-
-                                <p>
-                                    Current collection
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="availability-list">
-
-
-                            <div class="availability-item">
-
-                                <div>
-
-                                    <strong>
-                                        Computer Science
-                                    </strong>
-
-                                    <small>
-                                        420 books
-                                    </small>
-
-                                </div>
-
-                                <span class="available">
-                                    Available
-                                </span>
-
-                            </div>
-
-
-                            <div class="availability-item">
-
-                                <div>
-
-                                    <strong>
-                                        Engineering
-                                    </strong>
-
-                                    <small>
-                                        315 books
-                                    </small>
-
-                                </div>
-
-                                <span class="available">
-                                    Available
-                                </span>
-
-                            </div>
-
-
-                            <div class="availability-item">
-
-                                <div>
-
-                                    <strong>
-                                        Science
-                                    </strong>
-
-                                    <small>
-                                        260 books
-                                    </small>
-
-                                </div>
-
-                                <span class="available">
-                                    Available
-                                </span>
-
-                            </div>
-
-
-                            <div class="availability-item">
-
-                                <div>
-
-                                    <strong>
-                                        Literature
-                                    </strong>
-
-                                    <small>
-                                        255 books
-                                    </small>
-
-                                </div>
-
-                                <span class="available">
-                                    Available
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- Quick Actions -->
-                <div class="panel quick-actions">
-
-                    <div class="panel-header">
-
-                        <div>
-
-                            <h2>
-                                Quick Actions
-                            </h2>
-
-                            <p>
-                                Frequently used operations
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="quick-grid">
-
-
-                        <button
-                            class="quick-card"
-                            data-page-link="books"
-                        >
-
-                            <span>➕</span>
-
-                            <strong>
-                                Add Book
-                            </strong>
-
-                            <small>
-                                Add a new book
-                            </small>
-
-                        </button>
-
-
-                        <button
-                            class="quick-card"
-                            data-page-link="students"
-                        >
-
-                            <span>👤</span>
-
-                            <strong>
-                                Add Student
-                            </strong>
-
-                            <small>
-                                Register a student
-                            </small>
-
-                        </button>
-
-
-                        <button
-                            class="quick-card"
-                            data-page-link="transactions"
-                        >
-
-                            <span>📖</span>
-
-                            <strong>
-                                Issue Book
-                            </strong>
-
-                            <small>
-                                Issue a book
-                            </small>
-
-                        </button>
-
-
-                        <button
-                            class="quick-card"
-                            data-page-link="transactions"
-                        >
-
-                            <span>↩️</span>
-
-                            <strong>
-                                Return Book
-                            </strong>
-
-                            <small>
-                                Process return
-                            </small>
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-
-            <!-- =================================================
-                 BOOK MANAGEMENT
-                 ================================================= -->
-
-            <section
-                id="books"
-                class="content-page"
-            >
-
-                <div class="page-card">
-
-                    <div class="page-card-header">
-
-                        <div>
-
-                            <h2>
-                                Book Management
-                            </h2>
-
-                            <p>
-                                Add, search and manage library books.
-                            </p>
-
-                        </div>
-
-                        <button
-                            class="primary-small-button"
-                            id="addBookButton"
-                        >
-                            + Add Book
-                        </button>
-
-                    </div>
-
-
-                    <!-- Search -->
                     <input
                         type="text"
                         id="bookSearch"
-                        class="search-input"
-                        placeholder="Search books by title, author or category..."
+                        class="search-box"
+                        placeholder="Search books..."
                     >
+                </div>
 
 
-                    <!-- Books Table -->
-                    <div class="table-wrapper">
+                <div class="table-container">
 
-                        <table>
+                    <table>
 
-                            <thead>
+                        <thead>
+                            <tr>
+                                <th>BOOK ID</th>
+                                <th>BOOK</th>
+                                <th>AUTHOR</th>
+                                <th>CATEGORY</th>
+                                <th>TOTAL</th>
+                                <th>AVAILABLE</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
 
-                                <tr>
+                        <tbody id="booksTable"></tbody>
 
-                                    <th>Book ID</th>
-
-                                    <th>Title</th>
-
-                                    <th>Author</th>
-
-                                    <th>Category</th>
-
-                                    <th>Available</th>
-
-                                    <th>Status</th>
-
-                                </tr>
-
-                            </thead>
-
-
-                            <tbody id="booksTable">
-
-                                <tr>
-
-                                    <td>B001</td>
-
-                                    <td>
-                                        Data Structures
-                                    </td>
-
-                                    <td>
-                                        Mark Allen
-                                    </td>
-
-                                    <td>
-                                        Computer Science
-                                    </td>
-
-                                    <td>
-                                        12
-                                    </td>
-
-                                    <td>
-                                        <span class="status available-status">
-                                            Available
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>B002</td>
-
-                                    <td>
-                                        Computer Networks
-                                    </td>
-
-                                    <td>
-                                        Andrew Tanenbaum
-                                    </td>
-
-                                    <td>
-                                        Networking
-                                    </td>
-
-                                    <td>
-                                        8
-                                    </td>
-
-                                    <td>
-                                        <span class="status available-status">
-                                            Available
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>B003</td>
-
-                                    <td>
-                                        Operating Systems
-                                    </td>
-
-                                    <td>
-                                        Abraham Silberschatz
-                                    </td>
-
-                                    <td>
-                                        Computer Science
-                                    </td>
-
-                                    <td>
-                                        0
-                                    </td>
-
-                                    <td>
-                                        <span class="status unavailable-status">
-                                            Not Available
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
+                    </table>
 
                 </div>
 
-            </section>
+            </div>
+
+        </section>
 
 
+        <!-- STUDENTS -->
+        <section id="students" class="content-page">
 
-            <!-- =================================================
-                 STUDENT MANAGEMENT
-                 ================================================= -->
+            <div class="page-heading">
+                <div>
+                    <h1>Students</h1>
+                    <p>Manage registered students</p>
+                </div>
 
-            <section
-                id="students"
-                class="content-page"
-            >
+                <button id="addStudentButton" class="primary-button">
+                    + Add Student
+                </button>
+            </div>
 
-                <div class="page-card">
 
-                    <div class="page-card-header">
+            <div class="stats-grid">
 
-                        <div>
-
-                            <h2>
-                                Student Management
-                            </h2>
-
-                            <p>
-                                Manage registered library students.
-                            </p>
-
-                        </div>
-
-                        <button class="primary-small-button">
-                            + Add Student
-                        </button>
-
+                <div class="stat-card">
+                    <div class="stat-icon">👨‍🎓</div>
+                    <div>
+                        <h2>486</h2>
+                        <p>Total Students</p>
+                        <small>Registered students</small>
                     </div>
+                </div>
 
+                <div class="stat-card">
+                    <div class="stat-icon">🟢</div>
+                    <div>
+                        <h2>468</h2>
+                        <p>Active Students</p>
+                        <small>Currently active</small>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <h2>Student Management</h2>
+                        <p>Registered library students</p>
+                    </div>
 
                     <input
                         type="text"
-                        class="search-input"
+                        id="studentSearch"
+                        class="search-box"
                         placeholder="Search students..."
                     >
+                </div>
 
+                <div class="table-container">
 
-                    <div class="table-wrapper">
+                    <table>
 
-                        <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>NAME</th>
+                                <th>COURSE</th>
+                                <th>EMAIL</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
 
-                            <thead>
+                        <tbody id="studentsTable"></tbody>
 
-                                <tr>
-
-                                    <th>Student ID</th>
-
-                                    <th>Name</th>
-
-                                    <th>Course</th>
-
-                                    <th>Email</th>
-
-                                    <th>Status</th>
-
-                                </tr>
-
-                            </thead>
-
-
-                            <tbody>
-
-                                <tr>
-
-                                    <td>S001</td>
-
-                                    <td>
-                                        Rahul Kumar
-                                    </td>
-
-                                    <td>
-                                        B.Tech CSE
-                                    </td>
-
-                                    <td>
-                                        rahul@example.com
-                                    </td>
-
-                                    <td>
-                                        <span class="status active-status">
-                                            Active
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>S002</td>
-
-                                    <td>
-                                        Ananya Reddy
-                                    </td>
-
-                                    <td>
-                                        B.Tech ECE
-                                    </td>
-
-                                    <td>
-                                        ananya@example.com
-                                    </td>
-
-                                    <td>
-                                        <span class="status active-status">
-                                            Active
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>S003</td>
-
-                                    <td>
-                                        Vikram Singh
-                                    </td>
-
-                                    <td>
-                                        B.Tech IT
-                                    </td>
-
-                                    <td>
-                                        vikram@example.com
-                                    </td>
-
-                                    <td>
-                                        <span class="status active-status">
-                                            Active
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
+                    </table>
 
                 </div>
 
-            </section>
+            </div>
+
+        </section>
 
 
+        <!-- TRANSACTIONS -->
+        <section id="transactions" class="content-page">
 
-            <!-- =================================================
-                 ISSUE & RETURN
-                 ================================================= -->
+            <div class="page-heading">
+                <div>
+                    <h1>Issue & Return</h1>
+                    <p>Manage book transactions</p>
+                </div>
+            </div>
 
-            <section
-                id="transactions"
-                class="content-page"
-            >
+            <div class="form-grid">
 
-                <div class="form-grid">
+                <div class="panel">
+                    <h2>Issue Book</h2>
 
-
-                    <!-- Issue Book -->
-                    <div class="page-card">
-
-                        <h2>
-                            Issue Book
-                        </h2>
-
-                        <p class="card-description">
-                            Issue a book to a registered student.
-                        </p>
-
-
-                        <form id="issueForm">
-
-                            <label>
-                                Student ID
-                            </label>
-
-                            <input
-                                type="text"
-                                placeholder="Enter student ID"
-                                required
-                            >
-
-
-                            <label>
-                                Book ID
-                            </label>
-
-                            <input
-                                type="text"
-                                placeholder="Enter book ID"
-                                required
-                            >
-
-
-                            <label>
-                                Issue Date
-                            </label>
-
-                            <input
-                                type="date"
-                                required
-                            >
-
-
-                            <label>
-                                Due Date
-                            </label>
-
-                            <input
-                                type="date"
-                                required
-                            >
-
-
-                            <button
-                                type="submit"
-                                class="primary-button form-button"
-                            >
-                                Issue Book
-                            </button>
-
-                        </form>
-
-                    </div>
-
-
-
-                    <!-- Return Book -->
-                    <div class="page-card">
-
-                        <h2>
-                            Return Book
-                        </h2>
-
-                        <p class="card-description">
-                            Process returned library books.
-                        </p>
-
-
-                        <form id="returnForm">
-
-                            <label>
-                                Student ID
-                            </label>
-
-                            <input
-                                type="text"
-                                placeholder="Enter student ID"
-                                required
-                            >
-
-
-                            <label>
-                                Book ID
-                            </label>
-
-                            <input
-                                type="text"
-                                placeholder="Enter book ID"
-                                required
-                            >
-
-
-                            <label>
-                                Return Date
-                            </label>
-
-                            <input
-                                type="date"
-                                required
-                            >
-
-
-                            <label>
-                                Fine
-                            </label>
-
-                            <input
-                                type="number"
-                                placeholder="Enter fine amount"
-                                value="0"
-                                min="0"
-                            >
-
-
-                            <button
-                                type="submit"
-                                class="primary-button form-button"
-                            >
-                                Return Book
-                            </button>
-
-                        </form>
-
-                    </div>
-
+                    <form id="issueForm">
+                        <input type="text" placeholder="Student ID" required>
+                        <input type="text" placeholder="Book ID" required>
+                        <button class="primary-button">Issue Book</button>
+                    </form>
                 </div>
 
-            </section>
+                <div class="panel">
+                    <h2>Return Book</h2>
 
-
-
-            <!-- =================================================
-                 RESERVATIONS
-                 ================================================= -->
-
-            <section
-                id="reservations"
-                class="content-page"
-            >
-
-                <div class="page-card">
-
-                    <div class="page-card-header">
-
-                        <div>
-
-                            <h2>
-                                Book Reservations
-                            </h2>
-
-                            <p>
-                                Manage reserved books.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="table-wrapper">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>Reservation ID</th>
-
-                                    <th>Student</th>
-
-                                    <th>Book</th>
-
-                                    <th>Date</th>
-
-                                    <th>Status</th>
-
-                                </tr>
-
-                            </thead>
-
-
-                            <tbody>
-
-                                <tr>
-
-                                    <td>R001</td>
-
-                                    <td>
-                                        Rahul Kumar
-                                    </td>
-
-                                    <td>
-                                        Artificial Intelligence
-                                    </td>
-
-                                    <td>
-                                        04 Sep 2026
-                                    </td>
-
-                                    <td>
-                                        <span class="status pending-status">
-                                            Pending
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>R002</td>
-
-                                    <td>
-                                        Sneha Rao
-                                    </td>
-
-                                    <td>
-                                        Machine Learning
-                                    </td>
-
-                                    <td>
-                                        03 Sep 2026
-                                    </td>
-
-                                    <td>
-                                        <span class="status approved-status">
-                                            Approved
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
+                    <form id="returnForm">
+                        <input type="text" placeholder="Student ID" required>
+                        <input type="text" placeholder="Book ID" required>
+                        <button class="primary-button">Return Book</button>
+                    </form>
                 </div>
 
-            </section>
+            </div>
+
+        </section>
 
 
+        <!-- RESERVATIONS -->
+        <section id="reservations" class="content-page">
 
-            <!-- =================================================
-                 FINES
-                 ================================================= -->
+            <div class="page-heading">
+                <div>
+                    <h1>Reservations</h1>
+                    <p>Manage reserved books</p>
+                </div>
+            </div>
 
-            <section
-                id="fines"
-                class="content-page"
-            >
+            <div class="panel">
+                <h2>Book Reservations</h2>
+                <p>No pending reservations.</p>
+            </div>
 
-                <div class="page-card">
-
-                    <h2>
-                        Fine Management
-                    </h2>
-
-                    <p class="card-description">
-                        Track overdue books and fines.
-                    </p>
+        </section>
 
 
-                    <div class="fine-summary">
+        <!-- FINES -->
+        <section id="fines" class="content-page">
 
-                        <div>
-                            <span>Total Pending Fine</span>
-                            <strong>₹2,450</strong>
-                        </div>
+            <div class="page-heading">
+                <div>
+                    <h1>Fines</h1>
+                    <p>Manage overdue fines</p>
+                </div>
+            </div>
 
-                        <div>
-                            <span>Overdue Books</span>
-                            <strong>18</strong>
-                        </div>
+            <div class="panel">
+                <h2>Fine Management</h2>
+                <p>No unpaid fines currently available.</p>
+            </div>
 
-                        <div>
-                            <span>Collected</span>
-                            <strong>₹8,750</strong>
-                        </div>
-
-                    </div>
+        </section>
 
 
-                    <div class="table-wrapper">
+        <!-- NOTIFICATIONS -->
+        <section id="notifications" class="content-page">
 
-                        <table>
+            <div class="page-heading">
+                <div>
+                    <h1>Notifications</h1>
+                    <p>Library notifications</p>
+                </div>
+            </div>
 
-                            <thead>
-
-                                <tr>
-
-                                    <th>Student</th>
-
-                                    <th>Book</th>
-
-                                    <th>Overdue Days</th>
-
-                                    <th>Fine</th>
-
-                                    <th>Status</th>
-
-                                </tr>
-
-                            </thead>
-
-
-                            <tbody>
-
-                                <tr>
-
-                                    <td>
-                                        Rahul Kumar
-                                    </td>
-
-                                    <td>
-                                        Data Structures
-                                    </td>
-
-                                    <td>
-                                        5
-                                    </td>
-
-                                    <td>
-                                        ₹50
-                                    </td>
-
-                                    <td>
-                                        <span class="status pending-status">
-                                            Pending
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-
-                                <tr>
-
-                                    <td>
-                                        Sneha Rao
-                                    </td>
-
-                                    <td>
-                                        Database Systems
-                                    </td>
-
-                                    <td>
-                                        3
-                                    </td>
-
-                                    <td>
-                                        ₹30
-                                    </td>
-
-                                    <td>
-                                        <span class="status paid-status">
-                                            Paid
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
+            <div class="panel">
+                <div class="notification">
+                    🔔 18 books are currently overdue.
                 </div>
 
-            </section>
+                <div class="notification">
+                    📚 New books have been added to the library.
+                </div>
+            </div>
+
+        </section>
 
 
+        <!-- REPORTS -->
+        <section id="reports" class="content-page">
 
-            <!-- =================================================
-                 NOTIFICATIONS
-                 ================================================= -->
+            <div class="page-heading">
+                <div>
+                    <h1>Reports</h1>
+                    <p>Library reports and statistics</p>
+                </div>
+            </div>
 
-            <section
-                id="notifications"
-                class="content-page"
-            >
+            <div class="stats-grid">
 
-                <div class="page-card">
-
-                    <h2>
-                        Notifications
-                    </h2>
-
-                    <p class="card-description">
-                        Important library notifications.
-                    </p>
-
-
-                    <div class="notification-list">
-
-                        <div class="notification-card">
-
-                            <span>📢</span>
-
-                            <div>
-
-                                <strong>
-                                    Book Return Reminder
-                                </strong>
-
-                                <p>
-                                    5 books are due for return today.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="notification-card">
-
-                            <span>⚠️</span>
-
-                            <div>
-
-                                <strong>
-                                    Overdue Books
-                                </strong>
-
-                                <p>
-                                    18 books have crossed their due date.
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="notification-card">
-
-                            <span>📚</span>
-
-                            <div>
-
-                                <strong>
-                                    New Books Added
-                                </strong>
-
-                                <p>
-                                    25 new books were added this month.
-                                </p>
-
-                            </div>
-
-                        </div>
-
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div>
+                        <h2>1250</h2>
+                        <p>Total Books</p>
                     </div>
-
                 </div>
 
-            </section>
-
-
-
-            <!-- =================================================
-                 REPORTS
-                 ================================================= -->
-
-            <section
-                id="reports"
-                class="content-page"
-            >
-
-                <div class="page-card">
-
-                    <h2>
-                        Library Reports
-                    </h2>
-
-                    <p class="card-description">
-                        Overview of library performance.
-                    </p>
-
-
-                    <div class="report-grid">
-
-
-                        <div class="report-card">
-
-                            <span>📚</span>
-
-                            <h3>
-                                1,250
-                            </h3>
-
-                            <p>
-                                Total Books
-                            </p>
-
-                        </div>
-
-
-                        <div class="report-card">
-
-                            <span>🔄</span>
-
-                            <h3>
-                                128
-                            </h3>
-
-                            <p>
-                                Books Issued
-                            </p>
-
-                        </div>
-
-
-                        <div class="report-card">
-
-                            <span>👨‍🎓</span>
-
-                            <h3>
-                                486
-                            </h3>
-
-                            <p>
-                                Students
-                            </p>
-
-                        </div>
-
-
-                        <div class="report-card">
-
-                            <span>💰</span>
-
-                            <h3>
-                                ₹11,200
-                            </h3>
-
-                            <p>
-                                Total Fines
-                            </p>
-
-                        </div>
-
+                <div class="stat-card">
+                    <div class="stat-icon">👨‍🎓</div>
+                    <div>
+                        <h2>486</h2>
+                        <p>Total Students</p>
                     </div>
-
                 </div>
 
-            </section>
-
-
-
-            <!-- =================================================
-                 SETTINGS
-                 ================================================= -->
-
-            <section
-                id="settings"
-                class="content-page"
-            >
-
-                <div class="page-card">
-
-                    <h2>
-                        Settings
-                    </h2>
-
-                    <p class="card-description">
-                        Manage basic system settings.
-                    </p>
-
-
-                    <div class="settings-list">
-
-                        <div class="setting-row">
-
-                            <div>
-
-                                <strong>
-                                    Library Name
-                                </strong>
-
-                                <small>
-                                    Smart Library
-                                </small>
-
-                            </div>
-
-                            <button>
-                                Edit
-                            </button>
-
-                        </div>
-
-
-                        <div class="setting-row">
-
-                            <div>
-
-                                <strong>
-                                    Fine Per Day
-                                </strong>
-
-                                <small>
-                                    ₹10 per overdue day
-                                </small>
-
-                            </div>
-
-                            <button>
-                                Edit
-                            </button>
-
-                        </div>
-
-
-                        <div class="setting-row">
-
-                            <div>
-
-                                <strong>
-                                    Maximum Books
-                                </strong>
-
-                                <small>
-                                    5 books per student
-                                </small>
-
-                            </div>
-
-                            <button>
-                                Edit
-                            </button>
-
-                        </div>
-
+                <div class="stat-card">
+                    <div class="stat-icon">🔄</div>
+                    <div>
+                        <h2>128</h2>
+                        <p>Issued Books</p>
                     </div>
-
                 </div>
 
-            </section>
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div>
+                        <h2>18</h2>
+                        <p>Overdue</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
 
 
-            <!-- Footer -->
+        <!-- SETTINGS -->
+        <section id="settings" class="content-page">
 
-            <footer class="footer">
+            <div class="page-heading">
+                <div>
+                    <h1>Settings</h1>
+                    <p>System settings</p>
+                </div>
+            </div>
 
-                Smart Library Management System © 2026
+            <div class="panel">
+                <h2>Library Settings</h2>
+                <p>Smart Library Management System</p>
+            </div>
 
-            </footer>
+        </section>
 
+    </main>
 
-        </main>
+</div>
 
-    </section>
-
-
-
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
-
 </html>
